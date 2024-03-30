@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML to PDF Converter</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<input type="file" id="htmlFile" name="htmlFile"><br><br>
+<button onclick="convertToPDF()">Convert to PDF</button>
+
+<script>
+function convertToPDF() {
+    var formData = new FormData();
+    formData.append('file', $('#htmlFile')[0].files[0]);
+
+    $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            window.location.href = '/pdfs/' + response.pdf_path.split('/').pop();
+        },
+        error: function(error) {
+            console.error("Error:", error);
+        }
+    });
+}
+</script>
+
+</body>
+</html>
