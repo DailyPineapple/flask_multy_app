@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Songs</title>
+</head>
+<body>
+    <h1>Review Songs to Remove</h1>
+    <p>Below is a list of songs that are both liked and in your playlists:</p>
+    <form method="POST" action="{{ url_for('confirm_deletion') }}">
+        <input type="checkbox" id="checkAll" onclick="toggleCheckboxes(this)"> Check All<br>
+        {% for id, name in intersecting_songs.items() %}
+            <input type="checkbox" name="tracks_to_remove" value="{{ id }}"> {{ name }}<br>
+        {% endfor %}
+        <input type="submit" value="Remove Selected Tracks">
+    </form>
+    <p>Total Liked Songs: {{ liked_songs }}</p>
+    <p>Total Songs in playlists: {{ total_liked_playlist }}</p>
+    <p>Total Songs in Both: {{ total_intersections }}</p>
+    <script>
+        function toggleCheckboxes(source) {
+            checkboxes = document.getElementsByName('tracks_to_remove');
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
+    </script>
+</body>
+</html>

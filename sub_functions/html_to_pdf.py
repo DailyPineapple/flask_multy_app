@@ -4,7 +4,6 @@ from werkzeug.utils import secure_filename
 import os
 from pdfkit import configuration
 
-# Define the Blueprint
 html_to_pdf_bp = Blueprint('html_to_pdf', __name__, template_folder='templates')
 
 UPLOAD_FOLDER = 'uploads'
